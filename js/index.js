@@ -25,7 +25,7 @@ function createWorld() {
   //scene.fog = new THREE.Fog(Theme._darkred, 8, 20);
   scene.background = new THREE.Color(Theme._darkred);
   //---
-  camera = new THREE.PerspectiveCamera(55, _width/_height, 1, 1000);
+  camera = new THREE.PerspectiveCamera(15, _width/_height, 1, 1000);
   camera.position.z = 12;
   //---
   renderer = new THREE.WebGLRenderer({antialias:true, alpha:false});
@@ -109,13 +109,13 @@ function createPrimitive() {
 var options = {
   perlin: {
     vel: 0.002,
-    speed: 0.00050,
-    perlins: 1.0,
-    decay: 0.10,
+    speed: 0.00002,
+    perlins: 3.0,
+    decay: 0.276,
     complex: 0.30,
-    waves: 20.0,
-    eqcolor: 11.0,
-    fragment: true,
+    waves: 3.0,
+    eqcolor: 7.0,
+    fragment: false,
     redhell: true
   },
   spin: {
@@ -129,7 +129,7 @@ function createGUI() {
   var camGUI = gui.addFolder('Camera');
   //cam.add(, 'speed', 0.0, 30.00).listen();
   camGUI.add(camera.position, 'z', 3, 20).name('Zoom').listen();
-  camGUI.add(options.perlin, 'vel', 0.000, 0.02).name('Velocity').listen();
+  camGUI.add(options.perlin, 'vel', 0.000, 0.0).name('Velocity').listen();
   //camGUI.open();
   
   var mathGUI = gui.addFolder('Math Options');
@@ -167,6 +167,7 @@ function animation() {
   mat.uniforms['fragment'].value = options.perlin.fragment;
   mat.uniforms['redhell'].value = options.perlin.redhell;
   //---
+  
   camera.lookAt(scene.position);
   renderer.render(scene, camera);
 }
